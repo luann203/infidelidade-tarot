@@ -189,6 +189,15 @@
 html { scroll-behavior: smooth; }
 body { min-height: 100dvh; overflow-x: hidden; }
 
+input[type="date"] {
+  background-color: var(--color-navy-light);
+  color: var(--color-text-primary);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+}
+
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(123, 97, 245, 0.3); border-radius: 3px; }

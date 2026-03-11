@@ -15,11 +15,11 @@ const Screen = {
 type ScreenType = (typeof Screen)[keyof typeof Screen];
 
 const PERGUNTA_OPTIONS = [
-  { value: 'traindo', label: 'Ele está me traindo?' },
-  { value: 'outra', label: 'Ele tem outra?' },
-  { value: 'ama', label: 'Ele me ama de verdade?' },
-  { value: 'continuar', label: 'Devo continuar com ele?' },
-  { value: 'deixar', label: 'Ele vai me deixar?' },
+  { value: 'cheating', label: 'Is he cheating on me?' },
+  { value: 'other-person', label: 'Does he have someone else?' },
+  { value: 'love', label: 'Does he truly love me?' },
+  { value: 'stay', label: 'Should I stay with him?' },
+  { value: 'leave', label: 'Is he going to leave me?' },
 ] as const;
 
 /** URL do vídeo da taróloga ao vivo (loop). Arquivo em public/movie.mp4 */
@@ -27,49 +27,49 @@ const VIDEO_TAROT_URL = '/movie.mp4';
 
 const TESTIMONIALS = [
   {
-    name: 'Mariana S.',
+    name: 'Emily S.',
     age: 34,
-    text: 'The numerology showed a 71% risk. I did the tarot reading and Selene saw a brunette woman around him. It was true.',
+    text: 'The numerology showed a 71% risk. I did the tarot reading and Selena saw a brunette woman around him. It was true.',
     avatar: 'https://i.pravatar.cc/150?img=1',
   },
   {
-    name: 'Paula R.',
+    name: 'Rachel P.',
     age: 29,
     text: 'The numbers were accurate, but the tarot revealed DETAILS that left me speechless. Worth every cent.',
     avatar: 'https://i.pravatar.cc/150?img=5',
   },
   {
-    name: 'Júlia M.',
+    name: 'Julia M.',
     age: 41,
     text: 'My risk was 68%. The tarot showed exactly when and how. I was able to prepare myself.',
     avatar: 'https://i.pravatar.cc/150?img=9',
   },
   {
-    name: 'Camila F.',
+    name: 'Camille F.',
     age: 36,
     text: 'I had suspected for months. The analysis showed 82% and confirmed everything I felt. I cried, but I needed to know.',
     avatar: 'https://i.pravatar.cc/150?img=16',
   },
   {
-    name: 'Renata L.',
+    name: 'Lauren R.',
     age: 32,
     text: 'The result was low risk and brought me peace. Sometimes we create stories in our head. Highly recommend.',
     avatar: 'https://i.pravatar.cc/150?img=20',
   },
   {
-    name: 'Aline B.',
+    name: 'Ashley B.',
     age: 27,
     text: 'I did it out of curiosity and was impressed by the accuracy. The numbers really reveal hidden things.',
     avatar: 'https://i.pravatar.cc/150?img=23',
   },
   {
-    name: 'Fernanda T.',
+    name: 'Vanessa T.',
     age: 44,
     text: 'After 15 years of marriage, the numbers showed what I was denying. The tarot reading completed everything.',
     avatar: 'https://i.pravatar.cc/150?img=25',
   },
   {
-    name: 'Beatriz C.',
+    name: 'Brittany C.',
     age: 31,
     text: 'A friend recommended it. It showed 74% risk and a week later I found messages on his phone.',
     avatar: 'https://i.pravatar.cc/150?img=32',
@@ -77,18 +77,56 @@ const TESTIMONIALS = [
 ];
 
 const BASE_CHAT_MESSAGES = [
-  { name: 'Amanda', text: 'Ela viu tudo mesmo!' },
-  { name: 'Carla', text: 'Incrível a precisão' },
-  { name: 'Júlia', text: 'Valeu muito a pena' },
-  { name: 'Mariana', text: 'Ela falou exatamente o que eu estava vivendo' },
-  { name: 'Bianca', text: 'Primeira vez aqui e já tô chocada' },
-  { name: 'Luana', text: 'Ela descreveu o cara igualzinho' },
-  { name: 'Priscila', text: 'Ela falou até a inicial da outra' },
-  { name: 'Renata', text: 'Segunda vez que faço, sempre certeira' },
-  { name: 'Talita', text: 'Eu tava em dúvida e ela abriu meus olhos' },
-  { name: 'Fernanda', text: 'Ela descreveu a situação sem eu falar nada' },
-  { name: 'Camila', text: 'Vale cada minuto de espera' },
-  { name: 'Isabela', text: 'Primeira vez num ao vivo assim' },
+  { name: 'Amanda', text: 'You guys, the reading she did for me last week... I found out EVERYTHING' },
+  { name: 'Carla', text: 'Anyone else here doing their second reading?' },
+  { name: 'Julia', text: 'Is Selena on?' },
+  { name: 'Mariana', text: 'How long is the wait today?' },
+  { name: 'Bianca', text: 'Mine came in 8 hours, it was quick' },
+  { name: 'Luana', text: 'Just checking if there are still spots available' },
+  { name: 'Priscila', text: 'She mentioned that name I suspected... it was EXACTLY right' },
+  { name: 'Renata', text: 'I confronted him yesterday. Everything she said was true.' },
+  { name: 'Talita', text: 'Has anyone here done the past lives reading?' },
+  { name: 'Fernanda', text: 'I\'m on my third reading with her already' },
+  { name: 'Camila', text: 'Best tarot reader I\'ve ever consulted, seriously' },
+  { name: 'Isabela', text: 'The accuracy is terrifying' },
+  { name: 'Patricia', text: 'She described his "friend" in the smallest details' },
+  { name: 'Sophie', text: "What's the queue like today?" },
+  { name: 'Nina', text: 'I really need an urgent reading' },
+  { name: 'Rachel', text: 'My sister did it and found out in 3 days' },
+  { name: 'Diana', text: 'Can I do a reading about the same person again?' },
+  { name: 'Erica', text: 'I broke up with him after the reading. Best decision.' },
+  { name: 'Helen', text: 'Her cards never miss' },
+  { name: 'Alice', text: 'Does anyone know if she works on weekends?' },
+  { name: 'Sabrina', text: "He's acting weird again... I need another reading" },
+  { name: 'Vanessa', text: 'The Tower card she pulled for me... EVERYTHING happened' },
+  { name: 'Tanya', text: "You guys, I'm shaking here waiting" },
+  { name: 'Megan', text: 'First time in the group, Amanda referred me' },
+  { name: 'Bruna', text: 'How long until I receive it by email?' },
+  { name: 'Olivia', text: 'She even saw the COLOR of the other woman\'s car' },
+  { name: 'Kathy', text: 'I found out he had a secret Instagram, just like she said' },
+  { name: 'Nicole', text: 'Has anyone done a reading to decide whether to go back or not?' },
+  { name: 'Laura', text: 'How much is the complete reading again?' },
+  { name: 'Bianca', text: "I'm addicted to her readings" },
+  { name: 'Claire', text: "He confessed after I followed the cards' advice" },
+  { name: 'Ivy', text: 'This woman changed my life' },
+  { name: 'Paula', text: 'I need to know if he\'s going to leave the other one' },
+  { name: 'Nora', text: 'Selena has saved my sanity so many times' },
+  { name: 'Lily', text: 'Are there a lot of people waiting?' },
+  { name: 'Jess', text: "I did it yesterday, haven't received it yet" },
+  { name: 'Rose', text: 'Is it normal to take 12 hours?' },
+  { name: 'Gabby', text: 'She told me to wait 15 days. I\'m going to wait.' },
+  { name: 'Samantha', text: 'The dates she gives are very accurate' },
+  { name: 'Chloe', text: 'I thought I was being paranoid... the cards confirmed everything' },
+  { name: 'Mila', text: 'Anyone else with their heart racing here?' },
+  { name: 'Tessa', text: 'My therapist gave me a solid recommendation' },
+  { name: 'Erin', text: "I'm here again you guys" },
+  { name: 'Joana', text: 'How many people does she see per day?' },
+  { name: 'Caroline', text: "Those who've done the complete reading, is it worth it?" },
+  { name: 'Bea', text: 'THANK YOU SO MUCH SELENE ❤️' },
+  { name: 'Iris', text: "He's traveling... I need to know if it's true" },
+  { name: 'Monica', text: 'Her reading gave me the courage to act' },
+  { name: 'Flavia', text: 'I did it for my mom too, she loved it' },
+  { name: 'Grace', text: 'Wonderful group, everyone here helps each other' },
 ] as const;
 
 // ============ Decorative SVGs ============
@@ -160,37 +198,53 @@ function buildReadingText(yourFirst: string, partnerFirst: string): string {
   const him = partnerFirst || 'João';
 
   return [
-    `${you}, puxei suas cartas e... preciso te dizer, a energia aqui está PESADA.`,
+    `${you}, I pulled your cards and... the energy here is VERY heavy.`,
     ``,
-    `Vejo o Dois de Copas Invertido, Sete de Espadas e A Torre.`,
+    `I see the Two of Cups Reversed, Seven of Swords and The Tower.`,
     ``,
-    `Deixa eu te explicar o que isso significa:`,
+    `In the last 3–4 months, ${him} has completely changed with you. You FEEL it, right? He’s different. Colder. More distant.`,
     ``,
-    `Nos últimos 3–4 meses, ${him} mudou com você. Você percebeu, né? Ele está mais distante, menos carinhoso. As cartas confirmam isso.`,
+    `The cards confirm what you already knew deep down.`,
     ``,
-    `${you}... vejo uma ENERGIA FEMININA muito próxima dele.`,
+    `${you}... I need to tell you something delicate.`,
     ``,
-    `É alguém do TRABALHO ou de um ambiente que ele frequenta regularmente. Não é alguém aleatório.`,
+    `I see a very strong FEMALE ENERGY around him.`,
     ``,
-    `A energia mostra uma mulher MORENA, cabelo longo, mais nova que você. Ela é mais solta, ri alto, chama atenção.`,
+    `It’s not just anyone. It’s someone he SEES REGULARLY. Work, gym, some place he goes to every week.`,
     ``,
-    `E o pior: ela ADMIRA ele. Faz ele se sentir importante, algo que ele não sente mais em casa.`,
+    `The energy shows details:`,
     ``,
-    `As conversas entre eles começaram inocentes, mas evoluíram. Hoje tem INTIMIDADE.`,
+    `BRUNETTE. Hair to the shoulders or longer. Younger than you – maybe 5 or 6 years.`,
     ``,
-    `Ele compartilha coisas com ela que deveria compartilhar com você.`,
+    `She’s the kind of woman who draws a lot of attention when she walks into a place. Looser and more outgoing than you.`,
     ``,
-    `${you}, as cartas mostram que ELE SABE que isso está errado. Por isso esconde o celular, apaga conversas, inventa desculpas.`,
+    `She MAKES HIM FEEL SPECIAL, you know?`,
     ``,
-    `E vou te falar mais... Me revelou até NOME aqui!`,
+    `She admires him. Compliments him. Makes him feel things he no longer feels at home with you.`,
     ``,
-    `Eu recomendo FORTEMENTE que você faça a leitura mais detalhada, onde eu consigo, com mais tempo, te trazer todos os detalhes, visitar vidas passadas, trazer um pouco da energia de vocês.`,
+    `The conversations started as “just friends”. But they evolved. Now there is EMOTIONAL INTIMACY.`,
     ``,
-    `Atenção minha amiga! Aqui tá falando que vai acontecer algo MUITO IMPORTANTE nos próximos dias, você precisa estar preparada.`,
+    `He tells her things. He vents. He laughs with her in a way he doesn’t laugh with you anymore.`,
     ``,
-    `O celular dele tá com SENHA, né? Vejo aqui um segredo muito bem guardado. Algo que ele não quer que você veja DE JEITO NENHUM.`,
+    `${you}, the cards are very clear: HE KNOWS this is wrong.`,
     ``,
-    `E a carta A Torre... ${you}, ela nunca mente. Ela indica REVELAÇÃO. Algo vai vir à tona, querendo ou não.`,
+    `That’s why the phone is always face down.`,
+    `That’s why he deletes conversations.`,
+    `That’s why he makes up excuses to go out.`,
+    ``,
+    `He KNOWS.`,
+    ``,
+    `And look... the cards revealed MUCH more here. NAME. INITIAL. Specific places. Times. But those are details I’ll only share with you in the full reading, with more time.`,
+    ``,
+    `His phone… it IS locked with a password, right? I see a very well-guarded secret there.`,
+    ``,
+    `And this last card, The Tower...`,
+    ``,
+    `${you}, it’s showing me something that will happen in the NEXT FEW DAYS.`,
+    ``,
+    `Something important.`,
+    ``,
+    `Stay alert.`,
   ].join('\n');
 }
 
@@ -225,6 +279,7 @@ const App: React.FC = () => {
 
   // Tela 1 - Leitura ao vivo
   const [mainQuestion, setMainQuestion] = useState<string>('');
+  const [partnerCity, setPartnerCity] = useState<string>('');
 
   const [scanProgress, setScanProgress] = useState(0);
   const [audienceCount, setAudienceCount] = useState(48);
@@ -243,26 +298,38 @@ const App: React.FC = () => {
   // Scanning
   useEffect(() => {
     if (screen !== Screen.SCANNING) return;
+    // Reset sempre que entrar na tela de scanning
     setScanProgress(0);
     setShowSelectedMessage(false);
     setAudienceCount(48);
 
     const formData: FormData = {
-      yourName, yourBirthdate, partnerName, partnerBirthdate,
+      yourName,
+      yourBirthdate,
+      partnerName,
+      partnerBirthdate,
       relationshipDuration: relationshipDuration as FormData['relationshipDuration'],
       email: '',
     };
     const res = calculateNumerology(formData);
     setResult(res);
+  }, [screen, yourName, yourBirthdate, partnerName, partnerBirthdate, relationshipDuration]);
 
+  // Barra de progresso começa a encher somente depois que a pergunta é selecionada
+  useEffect(() => {
+    if (screen !== Screen.SCANNING) return;
+    if (!showSelectedMessage) return;
+
+    setScanProgress(0);
     const start = Date.now();
     const dur = 28; // segundos para chegar em 100%
+
     const interval = setInterval(() => {
       const elapsed = (Date.now() - start) / 1000;
       if (elapsed >= dur) {
         setScanProgress(100);
         clearInterval(interval);
-        // Após terminar a "análise", avança suavemente para a página de leitura
+        // After finishing the "analysis", smoothly go to the reading page
         setTimeout(() => {
           setScreen(Screen.READING);
         }, 800);
@@ -270,10 +337,11 @@ const App: React.FC = () => {
         setScanProgress(Math.min(100, Math.round((elapsed / dur) * 100)));
       }
     }, 100);
-    return () => clearInterval(interval);
-  }, [screen, yourName, yourBirthdate, partnerName, partnerBirthdate, relationshipDuration]);
 
-  // Alterna mensagem "Selecionando perguntas..." -> "Parabéns, sua pergunta foi selecionada"
+    return () => clearInterval(interval);
+  }, [screen, showSelectedMessage]);
+
+  // Alternates message "Selecting questions..." -> "Your question was selected"
   useEffect(() => {
     if (screen !== Screen.SCANNING) return;
     setShowSelectedMessage(false);
@@ -281,7 +349,7 @@ const App: React.FC = () => {
     return () => clearTimeout(t);
   }, [screen]);
 
-  // Variação de pessoas assistindo na tela 2
+  // Audience variation on screen 2
   useEffect(() => {
     if (screen !== Screen.SCANNING) return;
     const interval = setInterval(() => {
@@ -318,7 +386,7 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [screen]);
 
-  // Efeito de escrita da leitura (Tela 3)
+  // Typing effect for the reading (screen 3)
   useEffect(() => {
     if (screen !== Screen.READING) {
       setReadingTyped('');
@@ -352,7 +420,7 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [screen, yourName, partnerName]);
 
-  // Quando a leitura terminar, mostra blocos de oferta com pequeno atraso
+  // When the reading finishes, show offer blocks with small delay
   useEffect(() => {
     if (screen !== Screen.READING) return;
     const full = readingFullRef.current;
@@ -388,16 +456,62 @@ const App: React.FC = () => {
   }, [screen, result]);
 
   const validateLandingTela1 = (): boolean => {
-    if (yourName.trim().length < 2) { setFormError('Digite seu nome.'); return false; }
-    if (partnerName.trim().length < 2) { setFormError('Digite o nome dele.'); return false; }
-    if (!mainQuestion) { setFormError('Escolha sua pergunta principal.'); return false; }
+    const nameRegex = /^[A-Za-z][A-Za-z\s.'-]{2,79}$/;
+
+    const yourNameTrimmed = yourName.trim();
+    const partnerNameTrimmed = partnerName.trim();
+    const cityTrimmed = partnerCity.trim();
+
+    if (!nameRegex.test(yourNameTrimmed)) {
+      setFormError('Please enter your full name using only letters.');
+      return false;
+    }
+
+    if (!nameRegex.test(partnerNameTrimmed)) {
+      setFormError('Please enter his full name using only letters.');
+      return false;
+    }
+
+    if (!partnerBirthdate) {
+      setFormError('Please enter his date of birth.');
+      return false;
+    }
+
+    const birth = new Date(partnerBirthdate);
+    const now = new Date();
+    if (Number.isNaN(birth.getTime())) {
+      setFormError('Please enter a valid date of birth.');
+      return false;
+    }
+    // basic sanity: not in the future and at least 10 years old
+    const tenYearsMs = 10 * 365 * 24 * 60 * 60 * 1000;
+    if (birth.getTime() > now.getTime() - tenYearsMs) {
+      setFormError('Please enter a date of birth that is at least 10 years in the past.');
+      return false;
+    }
+
+    if (!cityTrimmed || cityTrimmed.length < 3) {
+      setFormError('Please enter the city where you both live.');
+      return false;
+    }
+    if (!/[A-Za-z]/.test(cityTrimmed)) {
+      setFormError('Please enter a valid city name.');
+      return false;
+    }
+
+    if (!mainQuestion) {
+      setFormError('Please choose your main question.');
+      return false;
+    }
     setFormError(null);
-    fetch('https://n8n.srv1140010.hstgr.cloud/webhook/tarot-reveal', {
+    fetch('https://n8n.srv1140010.hstgr.cloud/webhook/tarot2-infidelidade', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         yourName: yourName.trim(),
         partnerName: partnerName.trim(),
+        partnerBirthdate,
+        partnerCity: partnerCity.trim(),
         mainQuestion,
         timestamp: new Date().toISOString(),
       }),
@@ -430,16 +544,16 @@ const App: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40" />
             <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
               <div className="w-16 h-16 rounded-full bg-purple/20 border border-purple/30 flex items-center justify-center text-2xl mb-3">🔮</div>
-              <p className="text-white/95 text-[14px] font-medium">Taróloga ao vivo</p>
-              <p className="text-white/80 text-[13px] mt-1">Selene está revelando tudo que está em oculto</p>
+              <p className="text-white/95 text-[14px] font-medium">Live tarot reader</p>
+              <p className="text-white/80 text-[13px] mt-1">Selena is revealing everything that is hidden</p>
               <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-red-500/90 px-3 py-1.5 text-[11px] font-bold text-white uppercase tracking-wider shadow-lg">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
                 </span>
-                Ao vivo agora
+                Live now
               </div>
-              <p className="mt-2 text-white/80 text-[12px] font-medium">⏰ 52 pessoas assistindo</p>
+              <p className="mt-2 text-white/80 text-[12px] font-medium">⏰ 52 people watching</p>
             </div>
           </div>
         </div>
@@ -450,20 +564,21 @@ const App: React.FC = () => {
           <div className="relative z-10 space-y-4">
             <div className="text-center space-y-2">
               <p className="text-[10px] text-text-secondary uppercase tracking-widest">
-                Dia:{' '}
-                {new Date().toLocaleDateString('pt-BR', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric',
-                })}
+                {(() => {
+                  const d = new Date();
+                  const mm = String(d.getMonth() + 1).padStart(2, '0');
+                  const dd = String(d.getDate()).padStart(2, '0');
+                  const yyyy = d.getFullYear();
+                  return `Day: ${mm}/${dd}/${yyyy}`;
+                })()}
               </p>
               <h1 className="text-[20px] sm:text-[22px] font-extrabold text-white leading-tight">
-                Leitura de tarot
+                Tarot Reading
                 <br />
-                <span className="gradient-text">Tema: Infidelidade</span>
+                <span className="gradient-text">Theme: Infidelity</span>
               </h1>
               <p className="text-[13px] text-text-secondary leading-relaxed max-w-[320px] mx-auto">
-                Descubra hoje se ele está te traindo. Faça sua pergunta, em alguns minutos as cartas trarão a resposta. As cartas não mentem.
+                Find out today if he is cheating on you. Ask your question and, in a few minutes, the cards will bring the answer. The cards don&apos;t lie.
               </p>
             </div>
 
@@ -475,17 +590,50 @@ const App: React.FC = () => {
             )}
 
             <div className="space-y-1.5">
-              <label className={labelCls}>Seu nome</label>
-              <input type="text" value={yourName} onChange={(e) => setYourName(e.target.value)} placeholder="Ex.: Maria" className={inputCls} />
+              <label className={labelCls}>Your full name</label>
+              <input
+                type="text"
+                value={yourName}
+                onChange={(e) => setYourName(e.target.value)}
+                placeholder="e.g., Mary Smith"
+                className={inputCls}
+              />
             </div>
 
             <div className="space-y-1.5">
-              <label className={labelCls}>Nome dele</label>
-              <input type="text" value={partnerName} onChange={(e) => setPartnerName(e.target.value)} placeholder="Ex.: João" className={inputCls} />
+              <label className={labelCls}>His full name</label>
+              <input
+                type="text"
+                value={partnerName}
+                onChange={(e) => setPartnerName(e.target.value)}
+                placeholder="e.g., John Brown"
+                className={inputCls}
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <label className={labelCls}>His date of birth</label>
+              <input
+                type="date"
+                value={partnerBirthdate}
+                onChange={(e) => setPartnerBirthdate(e.target.value)}
+                className={inputCls}
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <label className={labelCls}>City where you both live</label>
+              <input
+                type="text"
+                value={partnerCity}
+                onChange={(e) => setPartnerCity(e.target.value)}
+                placeholder="e.g., New York, NY"
+                className={inputCls}
+              />
             </div>
 
             <div className="space-y-2">
-              <label className={labelCls}>Sua pergunta principal</label>
+              <label className={labelCls}>Your main question</label>
               <div className="space-y-2">
                 {PERGUNTA_OPTIONS.map((opt) => (
                   <button
@@ -503,7 +651,7 @@ const App: React.FC = () => {
                     }`}>
                       {mainQuestion === opt.value && <div className="w-2 h-2 rounded-full bg-white" />}
                     </div>
-                    <span className="text-[13px] font-medium">{opt.label}</span>
+                  <span className="text-[13px] font-medium">{opt.label}</span>
                   </button>
                 ))}
               </div>
@@ -513,12 +661,12 @@ const App: React.FC = () => {
               onClick={() => { if (validateLandingTela1()) setScreen(Screen.SCANNING); }}
               className="gradient-btn animate-pulse-glow w-full text-white font-bold py-4 rounded-2xl text-[15px] transition-all"
             >
-              Entrar na leitura
+              Join the reading
             </button>
 
             <p className="flex items-center justify-center gap-1.5 text-[11px] text-text-muted">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-teal"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              100% Confidencial
+              100% Confidential
             </p>
 
           </div>
@@ -545,15 +693,15 @@ const App: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40" />
             <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
               <div className="w-14 h-14 rounded-full bg-purple/20 border border-purple/30 flex items-center justify-center text-2xl mb-2">🔮</div>
-              <p className="text-white/95 text-[13px] font-medium">Selene está revelando tudo que está em oculto</p>
+              <p className="text-white/95 text-[13px] font-medium">Selena is revealing everything that is hidden</p>
               <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-red-500/90 px-3 py-1.5 text-[11px] font-bold text-white uppercase tracking-wider shadow-lg">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
                 </span>
-                Ao vivo
+                Live now
               </div>
-              <p className="mt-2 text-white/80 text-[12px] font-medium">⏰ {audienceCount} pessoas assistindo</p>
+              <p className="mt-2 text-white/80 text-[12px] font-medium">⏰ {audienceCount} people watching</p>
             </div>
           </div>
         </div>
@@ -564,25 +712,25 @@ const App: React.FC = () => {
             {!showSelectedMessage ? (
               <>
                 <p className="text-[13px] font-bold text-text-secondary whitespace-nowrap">
-                  Selecionando perguntas...
+                  Selecting questions...
                 </p>
                 <p className="text-[13px] text-text-secondary flex items-center justify-center gap-1">
                   <span className="inline-flex h-4 w-4 items-center justify-center">
                     <span className="h-4 w-4 rounded-full border-[2px] border-text-muted border-t-teal animate-spin-slow" />
                   </span>
-                  Aguarde alguns segundos...
+                  Please wait a few seconds...
                 </p>
               </>
             ) : (
               <>
                 <p className="text-[14px] font-bold text-teal tracking-wide whitespace-nowrap">
-                  ✅ Parabéns, sua pergunta foi selecionada
+                  ✅ Congratulations, your question has been selected
                 </p>
                 <p className="text-[13px] text-text-secondary flex items-center justify-center gap-1">
                   <span className="inline-flex h-4 w-4 items-center justify-center">
                     <span className="h-4 w-4 rounded-full border-[2px] border-text-muted border-t-teal animate-spin-slow" />
                   </span>
-                  Aguarde alguns segundos...
+                  Please wait a few seconds...
                 </p>
               </>
             )}
@@ -597,7 +745,7 @@ const App: React.FC = () => {
               />
             </div>
             <div className="flex justify-between text-[11px]">
-              <span className="text-text-muted">Preparando leitura...</span>
+              <span className="text-text-muted">Preparing reading...</span>
               <span className="text-purple-soft font-bold">{scanProgress}%</span>
             </div>
           </div>
@@ -605,15 +753,15 @@ const App: React.FC = () => {
           {/* Checklist de etapas */}
           <div className="space-y-2 pt-1">
             {[
-              `Sua pergunta foi recebida (sobre ${partnerFirst})`,
-              'Selene está terminando a leitura anterior...',
-              'Preparando suas cartas...',
-              'Conectando com sua energia...',
-              'Embaralhando o baralho...',
-              'Purificando as cartas...',
-              'A próxima leitura é a sua!',
-              'Tirando foto da leitura...',
-              'Transcrevendo resposta...',
+              `Your question was received (about ${partnerFirst})`,
+              'Selene is finishing the previous reading...',
+              'Preparing your cards...',
+              'Connecting with your energy...',
+              'Shuffling the deck...',
+              'Cleansing the cards...',
+              'Your reading is next!',
+              'Taking a photo of the spread...',
+              'Transcribing your answer...',
             ].map((label, index) => {
               const threshold = ((index + 1) / 9) * 100; // distribui pelos 100%
               const done = scanProgress >= threshold;
@@ -648,10 +796,10 @@ const App: React.FC = () => {
                 <polyline points="6 9 12 15 18 9" />
               </svg>
               <span className="ml-2 rounded-full bg-navy-light/80 border border-border px-2 py-0.5 text-[9px] text-text-muted">
-                Sala privada para assinantes premium
+                Private room for premium members
               </span>
             </div>
-            <span className="text-[10px] text-text-muted">{audienceCount} pessoas assistindo</span>
+            <span className="text-[10px] text-text-muted">{audienceCount} people watching</span>
           </div>
 
           {/* Mensagens */}
@@ -676,9 +824,9 @@ const App: React.FC = () => {
           <div className="border-t border-border bg-navy-card/80 px-3 py-2">
             <div className="flex items-center gap-2 text-[11px] text-text-muted bg-navy-light/80 rounded-full px-3 py-1.5">
               <span className="h-5 w-5 rounded-full bg-gradient-to-br from-purple-soft to-pink flex items-center justify-center text-[9px] font-bold text-white">
-                Você
+                You
               </span>
-              <span className="flex-1">Diga algo...</span>
+              <span className="flex-1">Say something...</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4A5578" strokeWidth="2">
                 <path d="M5 12h14" />
                 <path d="M12 5l7 7-7 7" />
@@ -1124,22 +1272,22 @@ const App: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40" />
             <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
               <div className="w-14 h-14 rounded-full bg-purple/20 border border-purple/30 flex items-center justify-center text-2xl mb-2">🔮</div>
-              <p className="text-white/95 text-[13px] font-medium">Selene está revelando tudo que está em oculto</p>
+              <p className="text-white/95 text-[13px] font-medium">Selena is revealing everything that is hidden</p>
               <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-red-500/90 px-3 py-1.5 text-[11px] font-bold text-white uppercase tracking-wider shadow-lg">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
                 </span>
-                Ao vivo agora
+                Live now
               </div>
               <p className="mt-2 text-white/80 text-[12px] font-medium">
-                ⏰ {audienceCount} pessoas assistindo
+                ⏰ {audienceCount} people watching
               </p>
             </div>
           </div>
         </div>
 
-        {/* Cabeçalho da leitura – imagem grande das cartas + legenda discreta */}
+        {/* Reading header – large image of the cards + subtle caption */}
         <div className="card-glow overflow-hidden relative">
           <img
             src="/cartas.png"
@@ -1147,17 +1295,17 @@ const App: React.FC = () => {
             className="w-full max-h-56 object-cover"
           />
           <span className="absolute top-2 right-3 rounded-full bg-black/40 px-2 py-0.5 text-[10px] text-text-secondary/80">
-            foto da sua leitura
+            photo of your reading
           </span>
         </div>
 
-        {/* Bloco inicial da leitura */}
+        {/* Initial reading block */}
         <div className="card p-5 space-y-3 text-slate-200">
           <div className="flex items-center justify-between gap-3">
-            <p className="text-[12px] font-bold text-purple-soft uppercase tracking-widest">🔮 Sua leitura</p>
+            <p className="text-[12px] font-bold text-purple-soft uppercase tracking-widest">🔮 Your reading</p>
             <span className="flex items-center gap-1 rounded-full bg-navy-light/80 border border-border px-2.5 py-0.5 text-[10px] text-text-secondary animate-pulse">
               <span className="h-1.5 w-1.5 rounded-full bg-teal" />
-              <span>transcrição em tempo real</span>
+              <span>live transcription</span>
             </span>
           </div>
           <p className="text-[13px] leading-relaxed whitespace-pre-line">
@@ -1170,10 +1318,10 @@ const App: React.FC = () => {
             <div className="mt-3 rounded-2xl border border-alert/40 bg-alert/10 px-3.5 py-2.5">
               <p className="text-[12px] font-bold text-alert flex items-center gap-2 mb-1">
                 <span>⚠️</span>
-                <span>Atenção</span>
+                <span>Attention</span>
               </p>
               <p className="text-[12px] text-text-secondary leading-relaxed">
-                Sua leitura foi finalizada. Selene está respondendo outras perguntas ao vivo neste momento.
+                Your reading has been completed. Selena is currently answering other questions live.
               </p>
             </div>
           )}
@@ -1193,47 +1341,61 @@ const App: React.FC = () => {
                   ))}
                 </div>
                 <p className="text-[17px] font-extrabold text-white leading-snug">
-                  Desbloqueie sua leitura
+                  Unlock your full
                   <br />
-                  completa e individual
+                  individual reading
                 </p>
                 <p className="text-[13px] text-text-secondary leading-relaxed">
-                  Selene vai aprofundar sua leitura e trazer respostas específicas que as cartas têm para <span className="text-white font-semibold">você</span>.
+                  Selena will go deeper into your reading and bring the specific answers the cards have for <span className="text-white font-semibold">you</span>.
                 </p>
               </div>
               <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
               <p className="text-[12px] font-bold text-text-secondary uppercase tracking-widest">
-                O que você vai receber:
+                What you will receive:
               </p>
               <ul className="space-y-1.5 text-[13px] text-text-secondary">
-                <li>🔮 A carta do FUTURO</li>
-                <li>🔮 O que ele está escondendo de verdade</li>
-                <li>🔮 As intenções reais dele com você</li>
-                <li>🔮 O momento certo para agir</li>
-                <li>🔮 A leitura de vidas passadas</li>
-                <li>🔮 Os conselhos das cartas</li>
-                <li>🔮 Respostas para perguntas específicas</li>
-                <li>🔮 A mensagem final do universo</li>
+                <li>🔮 The FUTURE card</li>
+                <li>🔮 What he is really hiding from you</li>
+                <li>🔮 His true intentions with you</li>
+                <li>🔮 The right moment to act</li>
+                <li>🔮 Past-life reading</li>
+                <li>🔮 The cards’ guidance</li>
+                <li>🔮 Answers to specific questions</li>
+                <li>🔮 The final message from the universe</li>
               </ul>
 
               <div className="pt-2 text-center space-y-1">
-                <p className="text-[11px] text-text-muted uppercase tracking-widest">pagamento único</p>
+                <p className="text-[11px] text-text-muted uppercase tracking-widest">one-time payment</p>
                 <p className="text-[60px] leading-none font-black gradient-text">$37</p>
               </div>
 
-              <button
-                type="button"
-                className="gradient-btn animate-pulse-glow w-full text-white font-bold py-3.5 rounded-2xl text-[15px] transition-all"
-              >
-                Desbloquear leitura completa
-              </button>
+            <button
+              type="button"
+              onClick={() => {
+                window.location.href = 'https://pay.hotmart.com/C104821320D?off=xj3yp4dn&checkoutMode=10';
+              }}
+              className="gradient-btn animate-pulse-glow w-full text-white font-bold py-3.5 rounded-2xl text-[15px] transition-all"
+            >
+              Unlock full reading
+            </button>
 
-              <p className="text-[11px] text-text-muted text-center">
-                ⏰ Oferta válida por 15 minutos após a revelação.
-              </p>
+            <div className="mt-2 flex items-center justify-center gap-4 text-[10px] text-text-muted">
+              <div className="flex items-center gap-1">
+                <span className="text-xs">🔒</span>
+                <span>Secure checkout</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-xs">💳</span>
+                <span>SSL encrypted payment</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-xs">✅</span>
+                <span>Hotmart buyer protection</span>
+              </div>
             </div>
+          </div>
 
-            {/* Como funciona (accordion) */}
+            {/* How it works (accordion) */}
             <div
               className="card p-4 animate-fadeIn"
               style={{ animationDelay: '0.15s', animationDuration: '1s' }}
@@ -1243,7 +1405,7 @@ const App: React.FC = () => {
                 onClick={() => setShowHowItWorks((v) => !v)}
                 className="w-full flex items-center justify-between text-[11px] font-semibold text-text-secondary uppercase tracking-widest"
               >
-                <span>Como funciona</span>
+                <span>How it works</span>
                 <span
                   className={`transition-transform duration-200 text-text-secondary ${
                     showHowItWorks ? 'rotate-180' : 'rotate-0'
@@ -1255,34 +1417,34 @@ const App: React.FC = () => {
 
               {showHowItWorks && (
                 <div className="mt-3 space-y-2 text-[12px] text-text-secondary leading-relaxed">
-                  <div className="flex items-start gap-3 rounded-xl bg-navy-light/80 border border-border px-3 py-2">
-                    <div className="w-6 h-6 rounded-full bg-purple/25 flex items-center justify-center text-[12px] font-semibold text-purple-soft">
-                      1
-                    </div>
-                    <p>
-                      Você faz o pagamento (pagamento único, 100% seguro) e garante sua vaga na fila de leituras do dia.
-                    </p>
+                <div className="flex items-start gap-3 rounded-xl bg-navy-light/80 border border-border px-3 py-2">
+                  <div className="w-6 h-6 rounded-full bg-purple/25 flex items-center justify-center text-[12px] font-semibold text-purple-soft">
+                    1
                   </div>
+                  <p>
+                    You make the payment (one-time, 100% secure) and secure your detailed reading.
+                  </p>
+                </div>
 
                   <div className="flex items-start gap-3 rounded-xl bg-navy-light/80 border border-border px-3 py-2">
                     <div className="w-6 h-6 rounded-full bg-purple/25 flex items-center justify-center text-[12px] font-semibold text-purple-soft">
                       2
                     </div>
-                    <p>
-                      Após o pagamento, você é direcionada para uma página onde pode enviar até{' '}
-                      <span className="font-semibold">3 perguntas específicas</span> às cartas.
-                    </p>
+                  <p>
+                    After payment, you are redirected to a page where you can send up to{' '}
+                    <span className="font-semibold">3 specific questions</span> to the cards.
+                  </p>
                   </div>
 
                   <div className="flex items-start gap-3 rounded-xl bg-navy-light/80 border border-border px-3 py-2">
                     <div className="w-6 h-6 rounded-full bg-purple/25 flex items-center justify-center text-[12px] font-semibold text-purple-soft">
                       3
                     </div>
-                    <p>
-                      Selene prepara sua leitura completa e envia para o seu e-mail em até{' '}
-                      <span className="font-semibold">12 horas</span>, com{' '}
-                      <span className="font-semibold">foto das cartas</span> + interpretação detalhada de toda a leitura.
-                    </p>
+                  <p>
+                    Selena prepares your complete reading and sends it to your email within{' '}
+                    <span className="font-semibold">12 hours</span>, with a{' '}
+                    <span className="font-semibold">photo of the cards</span> + a detailed interpretation of the entire spread.
+                  </p>
                   </div>
                 </div>
               )}
@@ -1333,7 +1495,7 @@ const App: React.FC = () => {
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple to-pink flex items-center justify-center text-[18px]">🔮</div>
             <div>
               <p className="text-[14px] font-bold text-white">Tarot Reading</p>
-              <p className="text-[11px] text-text-muted">Personalized with Selene Noir</p>
+              <p className="text-[11px] text-text-muted">Personalized with Selena Noir</p>
             </div>
           </div>
           <div className="space-y-1.5 text-[12px] text-text-secondary">
@@ -1417,7 +1579,7 @@ const App: React.FC = () => {
           </div>
           <h2 className="text-[20px] font-extrabold text-white">Booking Confirmed!</h2>
           <p className="text-[13px] text-text-secondary leading-relaxed max-w-[280px] mx-auto">
-            Selene Noir will contact you at your email within 24 hours.
+            Selena Noir will contact you at your email within 24 hours.
           </p>
         </div>
       </div>
@@ -1515,7 +1677,7 @@ const App: React.FC = () => {
               </div>
               <h2 className="text-[20px] font-extrabold text-white">QUESTIONS RECEIVED!</h2>
               <p className="text-[13px] text-text-secondary leading-relaxed">
-                Your questions have been sent to <strong className="text-white">Selene Noir</strong>.
+                Your questions have been sent to <strong className="text-white">Selena Noir</strong>.
               </p>
               <p className="text-[13px] text-text-secondary leading-relaxed">
                 Your full reading will be delivered within <strong className="text-white">24 hours</strong>.
@@ -1538,7 +1700,7 @@ const App: React.FC = () => {
               <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider">If you do not receive it within 24h:</p>
               {[
                 'Check spam/junk folders',
-                'Search for "Selene Noir"',
+                'Search for "Selena Noir"',
                 'Add our email to your contacts',
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-navy-light/60 border border-border">
@@ -1556,7 +1718,7 @@ const App: React.FC = () => {
                 <p className="text-[14px] font-bold text-white">Prepare yourself for the truth.</p>
               <div>
                 <p className="text-[13px] text-text-secondary italic">Light and protection,</p>
-                <p className="text-[15px] font-extrabold gradient-text">Selene Noir 🔮</p>
+                <p className="text-[15px] font-extrabold gradient-text">Selena Noir 🔮</p>
               </div>
             </div>
           </div>
@@ -1601,7 +1763,7 @@ const App: React.FC = () => {
           {/* Question count */}
           <div className="space-y-3">
             <p className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">
-              Quantas perguntas você deseja fazer às cartas?
+              How many questions do you want to ask the cards?
             </p>
             {([1, 2, 3] as const).map((count) => (
               <button
@@ -1620,7 +1782,7 @@ const App: React.FC = () => {
                   {trQuestionCount === count && <div className="w-2 h-2 rounded-full bg-white" />}
                 </div>
                 <span className="text-[13px] font-medium">
-                  {count} {count === 1 ? 'pergunta' : 'perguntas'}
+                  {count} {count === 1 ? 'question' : 'questions'}
                 </span>
               </button>
             ))}
