@@ -14,14 +14,6 @@ const Screen = {
 
 type ScreenType = (typeof Screen)[keyof typeof Screen];
 
-const RELATIONSHIP_OPTIONS = [
-  { value: 'less-than-1', label: '< 1 year' },
-  { value: '1-to-3', label: '1-3 years' },
-  { value: '3-to-5', label: '3-5 years' },
-  { value: '5-to-10', label: '5-10 years' },
-  { value: 'more-than-10', label: '10+ years' },
-] as const;
-
 const PERGUNTA_OPTIONS = [
   { value: 'traindo', label: 'Ele está me traindo?' },
   { value: 'outra', label: 'Ele tem outra?' },
@@ -230,22 +222,11 @@ const App: React.FC = () => {
   const [relationshipDuration, setRelationshipDuration] = useState(isDevResult ? '3-to-5' : '');
   const [formError, setFormError] = useState<string | null>(null);
   const [selectedPlan, setSelectedPlan] = useState(2);
-  const [testimonialPage, setTestimonialPage] = useState(0);
-  const totalTestimonialPages = Math.ceil(TESTIMONIALS.length / 2);
 
   // Tela 1 - Leitura ao vivo
   const [mainQuestion, setMainQuestion] = useState<string>('');
 
-  useEffect(() => {
-    if (screen !== Screen.LANDING) return;
-    const timer = setInterval(() => {
-      setTestimonialPage((p) => (p + 1) % totalTestimonialPages);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [screen, totalTestimonialPages]);
-
   const [scanProgress, setScanProgress] = useState(0);
-  const [scanElapsed, setScanElapsed] = useState(0);
   const [audienceCount, setAudienceCount] = useState(48);
 
   const [result, setResult] = useState<NumerologyResult | null>(isDevResult ? DEV_MOCK_RESULT : null);
@@ -263,7 +244,6 @@ const App: React.FC = () => {
   useEffect(() => {
     if (screen !== Screen.SCANNING) return;
     setScanProgress(0);
-    setScanElapsed(0);
     setShowSelectedMessage(false);
     setAudienceCount(48);
 
@@ -281,7 +261,6 @@ const App: React.FC = () => {
       const elapsed = (Date.now() - start) / 1000;
       if (elapsed >= dur) {
         setScanProgress(100);
-        setScanElapsed(dur);
         clearInterval(interval);
         // Após terminar a "análise", avança suavemente para a página de leitura
         setTimeout(() => {
@@ -422,17 +401,6 @@ const App: React.FC = () => {
         timestamp: new Date().toISOString(),
       }),
     }).catch(() => {});
-  };
-
-  const validate = (): boolean => {
-    if (yourName.trim().length < 3) { setFormError('Your name must have at least 3 characters.'); return false; }
-    if (!yourBirthdate) { setFormError('Enter your date of birth.'); return false; }
-    if (partnerName.trim().length < 3) { setFormError('His name must have at least 3 characters.'); return false; }
-    if (!partnerBirthdate) { setFormError('Enter his date of birth.'); return false; }
-    if (!relationshipDuration) { setFormError('Select how long you have been together.'); return false; }
-    setFormError(null);
-    sendWebhook();
-    return true;
   };
 
   const validateLandingTela1 = (): boolean => {
@@ -1156,8 +1124,6 @@ const App: React.FC = () => {
   // ==================== READING PAGE (Tela 3) ====================
 
   const renderReading = () => {
-    const yourFirst = yourName.split(' ')[0] || 'Você';
-    const partnerFirst = partnerName.split(' ')[0] || 'ele';
     const isReadingComplete =
       readingTyped.length >= (readingFullRef.current ? readingFullRef.current.length : 0);
 
@@ -1500,13 +1466,13 @@ const App: React.FC = () => {
   const renderThanksTR = () => {
     const [trName, setTrName] = useState('');
     const [trEmail, setTrEmail] = useState('');
-    const [trQuestionCount, setTrQuestionCount] = useState<1 | 3 | 5>(1);
+    const [trQuestionCount, setTrQuestionCount] = useState<1 | 2 | 3>(1);
     const [trQuestions, setTrQuestions] = useState<string[]>(['']);
     const [trSubmitted, setTrSubmitted] = useState(false);
     const [trSending, setTrSending] = useState(false);
     const [trError, setTrError] = useState<string | null>(null);
 
-    const handleCountChange = (count: 1 | 3 | 5) => {
+    const handleCountChange = (count: 1 | 2 | 3) => {
       setTrQuestionCount(count);
       setTrQuestions((prev) => {
         const arr = [...prev];
