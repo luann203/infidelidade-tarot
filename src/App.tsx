@@ -268,7 +268,6 @@ const App: React.FC = () => {
         }, 800);
       } else {
         setScanProgress(Math.min(100, Math.round((elapsed / dur) * 100)));
-        setScanElapsed(elapsed);
       }
     }, 100);
     return () => clearInterval(interval);
@@ -387,21 +386,6 @@ const App: React.FC = () => {
     }, 30);
     return () => clearInterval(interval);
   }, [screen, result]);
-
-  const sendWebhook = () => {
-    fetch('https://n8n.srv1140010.hstgr.cloud/webhook/tarot-reveal', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        yourName,
-        yourBirthdate,
-        partnerName,
-        partnerBirthdate,
-        relationshipDuration,
-        timestamp: new Date().toISOString(),
-      }),
-    }).catch(() => {});
-  };
 
   const validateLandingTela1 = (): boolean => {
     if (yourName.trim().length < 2) { setFormError('Digite seu nome.'); return false; }
