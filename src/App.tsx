@@ -904,13 +904,14 @@ const App: React.FC = () => {
       9: ['“Our relationship lost the magic”', 'Idealizes other people', 'Constant frustration'],
     };
 
-    const hotmartUrls: Record<number, string> = {
-      1: 'https://pay.hotmart.com/C104821320D?off=b5sqvv2s&checkoutMode=10',
-      2: 'https://pay.hotmart.com/C104821320D?off=47ohc0cy&checkoutMode=10',
-      3: 'https://pay.hotmart.com/C104821320D?off=xj3yp4dn&checkoutMode=10',
+    const CHECKOUT_URL = 'https://pay.kiwify.com/lt0poUB';
+    const checkoutUrls: Record<number, string> = {
+      1: CHECKOUT_URL,
+      2: CHECKOUT_URL,
+      3: CHECKOUT_URL,
     };
 
-    const buildHotmartUrlWithUtms = (base: string) => {
+    const buildCheckoutUrlWithUtms = (base: string) => {
       try {
         const currentParams = new URLSearchParams(window.location.search);
         const utmParams = new URLSearchParams();
@@ -1211,9 +1212,9 @@ const App: React.FC = () => {
 
             <button
               onClick={() => {
-                const base = hotmartUrls[selectedPlan];
+                const base = checkoutUrls[selectedPlan];
                 if (base) {
-                  const url = buildHotmartUrlWithUtms(base);
+                  const url = buildCheckoutUrlWithUtms(base);
                   window.location.href = url;
                 }
               }}
@@ -1372,7 +1373,7 @@ const App: React.FC = () => {
             <button
               type="button"
               onClick={() => {
-                window.location.href = 'https://pay.hotmart.com/C104821320D?off=xj3yp4dn&checkoutMode=10';
+                window.location.href = buildCheckoutUrlWithUtms(CHECKOUT_URL);
               }}
               className="gradient-btn animate-pulse-glow w-full text-white font-bold py-3.5 rounded-2xl text-[15px] transition-all"
             >
