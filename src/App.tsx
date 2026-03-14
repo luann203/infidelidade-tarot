@@ -1580,9 +1580,9 @@ const App: React.FC = () => {
           <div className="w-16 h-16 rounded-full bg-teal/10 border border-teal/20 mx-auto flex items-center justify-center">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <h2 className="text-[20px] font-extrabold text-white">Booking Confirmed!</h2>
-          <p className="text-[13px] text-text-secondary leading-relaxed max-w-[280px] mx-auto">
-            Selena Noir will contact you at your email within 24 hours.
+          <h2 className="text-[20px] font-extrabold text-white">Your Tarot Reading has been booked successfully.</h2>
+          <p className="text-[13px] text-text-secondary leading-relaxed max-w-[320px] mx-auto">
+            Take the opportunity to ask up to 3 questions for a more detailed reading. Within 12 hours we will send the reading with a photo of the cards drawn and full details to the email used for the purchase.
           </p>
         </div>
       </div>
@@ -1590,9 +1590,9 @@ const App: React.FC = () => {
       <div className="card p-5 space-y-3">
         <p className="text-[12px] font-bold text-text-secondary uppercase tracking-widest">Next steps</p>
         {[
-          'Check your email (and spam folder)',
-          'Reply with your available times',
-          'Selene will do your reading within 48h',
+          'Ask up to 3 questions for a more detailed reading (optional)',
+          'Within 12h you will receive the reading with card photos and full details',
+          'Check the email used for the purchase (and spam folder)',
         ].map((item, i) => (
           <div key={i} className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-teal/5 border border-teal/10">
             <div className="w-6 h-6 rounded-lg bg-teal/15 flex items-center justify-center text-[10px] font-bold text-teal">{i + 1}</div>
@@ -1754,11 +1754,11 @@ const App: React.FC = () => {
           {/* Name and Email */}
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider">Your full name</label>
+              <label className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider">Confirme seu nome</label>
               <input type="text" value={trName} onChange={(e) => setTrName(e.target.value)} placeholder="E.g.: Mary Smith" className="w-full rounded-xl bg-navy-light/80 border border-border px-4 py-3 text-[14px] text-white placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-purple/40 focus:border-purple/40 transition-all" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider">Your email</label>
+              <label className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider">Confirme seu email de compra</label>
               <input type="email" value={trEmail} onChange={(e) => setTrEmail(e.target.value)} placeholder="E.g.: mary@email.com" className="w-full rounded-xl bg-navy-light/80 border border-border px-4 py-3 text-[14px] text-white placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-purple/40 focus:border-purple/40 transition-all" />
             </div>
           </div>
