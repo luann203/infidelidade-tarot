@@ -280,7 +280,8 @@ function getInitialScreen(): ScreenType {
 
   if (screenParam === 'result') return Screen.RESULTS;
   if (screenParam === 'thanks-tr' || screenParam === 'thanks_tr') return Screen.THANKS_TR;
-   if (screenParam === 'reading') return Screen.READING;
+  if (screenParam === 'reading' || screenParam === 'pagina3') return Screen.READING;
+  if (screenParam === 'pagina2' || screenParam === 'scanning') return Screen.SCANNING;
 
   return Screen.LANDING;
 }
