@@ -25,6 +25,26 @@ const PERGUNTA_OPTIONS = [
 /** URL do vídeo da taróloga ao vivo (loop). Arquivo em public/movie.mp4 */
 const VIDEO_TAROT_URL = '/movie.mp4';
 
+/** URL do checkout Kiwify */
+const CHECKOUT_URL = 'https://pay.kiwify.com/lt0poUB';
+
+function buildCheckoutUrlWithUtms(base: string): string {
+  try {
+    const currentParams = new URLSearchParams(window.location.search);
+    const utmParams = new URLSearchParams();
+    currentParams.forEach((value, key) => {
+      if (key.toLowerCase().startsWith('utm_')) {
+        utmParams.set(key, value);
+      }
+    });
+    const utmString = utmParams.toString();
+    if (!utmString) return base;
+    return `${base}&${utmString}`;
+  } catch {
+    return base;
+  }
+}
+
 const TESTIMONIALS = [
   {
     name: 'Emily S.',
@@ -904,28 +924,10 @@ const App: React.FC = () => {
       9: ['“Our relationship lost the magic”', 'Idealizes other people', 'Constant frustration'],
     };
 
-    const CHECKOUT_URL = 'https://pay.kiwify.com/lt0poUB';
     const checkoutUrls: Record<number, string> = {
       1: CHECKOUT_URL,
       2: CHECKOUT_URL,
       3: CHECKOUT_URL,
-    };
-
-    const buildCheckoutUrlWithUtms = (base: string) => {
-      try {
-        const currentParams = new URLSearchParams(window.location.search);
-        const utmParams = new URLSearchParams();
-        currentParams.forEach((value, key) => {
-          if (key.toLowerCase().startsWith('utm_')) {
-            utmParams.set(key, value);
-          }
-        });
-        const utmString = utmParams.toString();
-        if (!utmString) return base;
-        return `${base}&${utmString}`;
-      } catch {
-        return base;
-      }
     };
 
     const SectionTitle = ({ children }: { children: React.ReactNode }) => (
